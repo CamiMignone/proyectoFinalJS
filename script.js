@@ -1,4 +1,7 @@
-const alojamientos = [{
+
+
+const alojamientos = [
+    {
         "id": 1,
         "pais": "España",
         "ciudad": "Barcelona",
@@ -6,7 +9,8 @@ const alojamientos = [{
         "comodidades": ["pileta", "cocina", "vista al paisaje"],
         "privada/compartida": "privada",
         "cantidad de personas aceptadas": 4,
-        "distancia": 2
+        "distancia": 2,
+        "precio por noche": 120
     },
     {
         "id": 2,
@@ -16,7 +20,8 @@ const alojamientos = [{
         "comodidades": ["cocina", "jacuzzi", "vista al paisaje"],
         "privada/compartida": "privada",
         "cantidad de personas aceptadas": 4,
-        "distancia": 0.5
+        "distancia": 0.5,
+        "precio por noche": 150
     },
     {
         "id": 3,
@@ -26,7 +31,8 @@ const alojamientos = [{
         "comodidades": ["cocina", "jacuzzi", "vista al paisaje"],
         "privada/compartida": "privada",
         "cantidad de personas aceptadas": 4,
-        "distancia": 8
+        "distancia": 8,
+        "precio por noche": 80
     },
     {
         "id": 4,
@@ -36,7 +42,8 @@ const alojamientos = [{
         "comodidades": ["pileta", "vista al paisaje"],
         "privada/compartida": "privada",
         "cantidad de personas aceptadas": 2,
-        "distancia": 0.2
+        "distancia": 0.2,
+        "precio por noche": 200
     },
     {
         "id": 5,
@@ -46,7 +53,8 @@ const alojamientos = [{
         "comodidades": ["pileta", "cocina"],
         "privada/compartida": "privada",
         "cantidad de personas aceptadas": 2,
-        "distancia": 4
+        "distancia": 4,
+        "precio por noche": 70
     },
     {
         "id": 6,
@@ -56,7 +64,8 @@ const alojamientos = [{
         "comodidades": ["vista al paisaje", "cocina"],
         "privada/compartida": "privada",
         "cantidad de personas aceptadas": 4,
-        "distancia": 10
+        "distancia": 10,
+        "precio por noche": 90
     },
     {
         "id": 7,
@@ -66,7 +75,8 @@ const alojamientos = [{
         "comodidades": ["jacuzzi", "vista al paisaje"],
         "privada/compartida": "privada",
         "cantidad de personas aceptadas": 2,
-        "distancia": 1
+        "distancia": 1,
+        "precio por noche": 180
     },
     {
         "id": 8,
@@ -76,7 +86,8 @@ const alojamientos = [{
         "comodidades": ["cocina", "vista al paisaje"],
         "privada/compartida": "privada",
         "cantidad de personas aceptadas": 2,
-        "distancia": 1
+        "distancia": 1,
+        "precio por noche": 160
     },
     {
         "id": 9,
@@ -86,7 +97,8 @@ const alojamientos = [{
         "comodidades": ["pileta", "cocina"],
         "privada/compartida": "compartida",
         "cantidad de personas aceptadas": 4,
-        "distancia": 0.3
+        "distancia": 0.3,
+        "precio por noche": 110
     },
     {
         "id": 10,
@@ -96,7 +108,8 @@ const alojamientos = [{
         "comodidades": ["cocina", "vista al paisaje"],
         "privada/compartida": "compartida",
         "cantidad de personas aceptadas": 2,
-        "distancia": 0.5
+        "distancia": 0.5,
+        "precio por noche": 90
     },
     {
         "id": 11,
@@ -106,7 +119,8 @@ const alojamientos = [{
         "comodidades": ["cocina", "vista al paisaje"],
         "privada/compartida": "privada",
         "cantidad de personas aceptadas": 2,
-        "distancia": 2
+        "distancia": 2,
+        "precio por noche": 140
     },
     {
         "id": 12,
@@ -116,7 +130,8 @@ const alojamientos = [{
         "comodidades": ["jacuzzi", "vista al paisaje"],
         "privada/compartida": "privada",
         "cantidad de personas aceptadas": 4,
-        "distancia": 1
+        "distancia": 1,
+        "precio por noche": 130
     },
     {
         "id": 13,
@@ -126,7 +141,8 @@ const alojamientos = [{
         "comodidades": ["pileta", "cocina", "vista al paisaje"],
         "privada/compartida": "privada",
         "cantidad de personas aceptadas": 4,
-        "distancia": 0.5
+        "distancia": 0.5,
+        "precio por noche": 210
     },
     {
         "id": 14,
@@ -136,7 +152,8 @@ const alojamientos = [{
         "comodidades": ["cocina", "vista al paisaje"],
         "privada/compartida": "privada",
         "cantidad de personas aceptadas": 2,
-        "distancia": 0.3
+        "distancia": 0.3,
+        "precio por noche": 130
     },
     {
         "id": 15,
@@ -146,7 +163,8 @@ const alojamientos = [{
         "comodidades": ["cocina", "vista al paisaje"],
         "privada/compartida": "privada",
         "cantidad de personas aceptadas": 2,
-        "distancia": 1
+        "distancia": 1,
+        "precio por noche": 250
     },
     {
         "id": 16,
@@ -156,7 +174,8 @@ const alojamientos = [{
         "comodidades": ["pileta", "vista al paisaje"],
         "privada/compartida": "privada",
         "cantidad de personas aceptadas": 4,
-        "distancia": 5
+        "distancia": 5,
+        "precio por noche": 300
     },
     {
         "id": 17,
@@ -166,7 +185,8 @@ const alojamientos = [{
         "comodidades": ["cocina", "jacuzzi"],
         "privada/compartida": "compartida",
         "cantidad de personas aceptadas": 4,
-        "distancia": 1
+        "distancia": 1,
+        "precio por noche": 120
     },
     {
         "id": 18,
@@ -176,7 +196,8 @@ const alojamientos = [{
         "comodidades": ["jacuzzi", "vista al paisaje"],
         "privada/compartida": "privada",
         "cantidad de personas aceptadas": 2,
-        "distancia": 10
+        "distancia": 10,
+        "precio por noche": 100
     },
     {
         "id": 19,
@@ -186,7 +207,8 @@ const alojamientos = [{
         "comodidades": ["pileta", "cocina"],
         "privada/compartida": "privada",
         "cantidad de personas aceptadas": 2,
-        "distancia": 3
+        "distancia": 3,
+        "precio por noche": 85
     },
     {
         "id": 20,
@@ -196,5 +218,8 @@ const alojamientos = [{
         "comodidades": ["vista al paisaje", "cocina"],
         "privada/compartida": "privada",
         "cantidad de personas aceptadas": 4,
-        "distancia": 2
-    }]
+        "distancia": 2,
+        "precio por noche": 95
+    }
+]
+
