@@ -1,5 +1,4 @@
-
-
+// Array de alojamientos
 const alojamientos = [
     { id: 1, pais: "España", ciudad: "Barcelona", nombre: "Apartamento en el Eixample", comodidades: ["pileta", "cocina", "vista al paisaje"], privada: "privada", capacidad: 4, distancia: 2, precioPorNoche: 120 },
     { id: 2, pais: "España", ciudad: "Madrid", nombre: "Ático en el Centro", comodidades: ["cocina", "jacuzzi", "vista al paisaje"], privada: "privada", capacidad: 4, distancia: 0.5, precioPorNoche: 150 },
@@ -22,4 +21,20 @@ const alojamientos = [
     { id: 19, pais: "Chile", ciudad: "Santiago", nombre: "Departamento en Providencia", comodidades: ["pileta", "cocina"], privada: "privada", capacidad: 2, distancia: 3, precioPorNoche: 85 },
     { id: 20, pais: "Chile", ciudad: "Valparaíso", nombre: "Casa en los Cerros", comodidades: ["vista al paisaje", "cocina"], privada: "privada", capacidad: 4, distancia: 2, precioPorNoche: 95 }
 ];
+
+let salida = "Ingrese pais de destino\n Pais - Nombre - Precio por noche\n"
+
+for (const alojamiento of alojamientos) {
+    salida = salida + alojamiento.pais + " - " + alojamiento.nombre + " - " + alojamiento.precioPorNoche + "\n"
+}
+
+
+let paisIngresado = prompt(salida)
+
+const paisesBuscados = alojamientos.filter(alojamiento => alojamiento.pais === paisIngresado)
+console.log(paisesBuscados)
+for (const paisBuscado of paisesBuscados) {
+    console.log(paisBuscado)
+}
+
 
