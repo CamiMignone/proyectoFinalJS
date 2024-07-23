@@ -19,8 +19,8 @@ const alojamientos = [
     { id: 18, pais: "Canada", ciudad: "Vancouver", nombre: "Casa en el Bosque", comodidades: ["jacuzzi", "vista al paisaje"], privada: "privada", capacidad: 2, distancia: 10, precioPorNoche: 100 },
     { id: 19, pais: "Chile", ciudad: "Santiago", nombre: "Departamento en Providencia", comodidades: ["pileta", "cocina"], privada: "privada", capacidad: 2, distancia: 3, precioPorNoche: 85 },
     { id: 20, pais: "Chile", ciudad: "Valparaiso", nombre: "Casa en los Cerros", comodidades: ["vista al paisaje", "cocina"], privada: "privada", capacidad: 4, distancia: 2, precioPorNoche: 95 },
-    { id: 21, pais: "España", ciudad: "Barcelona", nombre: "Estudio en el Barrio Gótico", comodidades: ["cocina", "vista al paisaje"], privada: "privada", capacidad: 2, distancia: 1.5, precioPorNoche: 100 },
-    { id: 22, pais: "España", ciudad: "Valencia", nombre: "Apartamento en la Playa", comodidades: ["pileta", "vista al paisaje"], privada: "privada", capacidad: 4, distancia: 0.1, precioPorNoche: 140 },
+    { id: 21, pais: "Espana", ciudad: "Barcelona", nombre: "Estudio en el Barrio Gótico", comodidades: ["cocina", "vista al paisaje"], privada: "privada", capacidad: 2, distancia: 1.5, precioPorNoche: 100 },
+    { id: 22, pais: "Espana", ciudad: "Valencia", nombre: "Apartamento en la Playa", comodidades: ["pileta", "vista al paisaje"], privada: "privada", capacidad: 4, distancia: 0.1, precioPorNoche: 140 },
     { id: 23, pais: "Mexico", ciudad: "Guadalajara", nombre: "Casa en el Centro Histórico", comodidades: ["cocina", "vista al paisaje"], privada: "privada", capacidad: 4, distancia: 2, precioPorNoche: 90 },
     { id: 24, pais: "Mexico", ciudad: "Playa del Carmen", nombre: "Villa Frente al Mar", comodidades: ["pileta", "jacuzzi", "vista al paisaje"], privada: "privada", capacidad: 4, distancia: 0.1, precioPorNoche: 220 },
     { id: 25, pais: "Argentina", ciudad: "Bariloche", nombre: "Cabaña en la Patagonia", comodidades: ["pileta", "vista al paisaje"], privada: "privada", capacidad: 4, distancia: 5, precioPorNoche: 120 },
@@ -39,19 +39,18 @@ const alojamientos = [
     { id: 38, pais: "Chile", ciudad: "Concepcion", nombre: "Departamento en el Centro", comodidades: ["cocina", "vista al paisaje"], privada: "privada", capacidad: 2, distancia: 1, precioPorNoche: 80 }
 ];
 
-let salida = "Ingrese pais de destino\n  Pais  -  ciudad  -  Precio por noche\n";
-
-for (const alojamiento of alojamientos) {
-    salida += alojamiento.pais + " - " + alojamiento.ciudad + " - " + alojamiento.precioPorNoche + "\n";
-}
-
 const paisesDisponibles = [...new Set(alojamientos.map(alojamiento => alojamiento.pais.toLowerCase()))];
+
+let salidaPaises = "Paises disponibles, escribe tu proximo destino\n";
+for (const pais of paisesDisponibles) {
+    salidaPaises = salidaPaises + pais + "\n";
+}
 
 let paisIngresado;
 let paisValido = false;
 
 while (!paisValido) {
-    paisIngresado = prompt(salida).toLowerCase();
+    paisIngresado = prompt(salidaPaises).toLowerCase();
     if (paisesDisponibles.includes(paisIngresado)) {
         paisValido = true;
     } else {
@@ -64,14 +63,29 @@ let cantPersonas = parseInt(prompt("Ingrese la cantidad de personas"));
 const paisesBuscados = alojamientos.filter(alojamiento => alojamiento.pais.toLowerCase() === paisIngresado && alojamiento.capacidad >= cantPersonas);
 console.log(paisesBuscados);
 
-let idIngresado = parseInt(prompt("Alojamientos disponibles en " + paisIngresado + ". Seleccione un ID\n" + paisesBuscados.map(alojamiento => alojamiento.id + " - " + alojamiento.ciudad + " - " + alojamiento.nombre + " - " + alojamiento.precioPorNoche).join("\n")));
+let mensaje = "Alojamientos disponibles en " + paisIngresado + ". Seleccione un ID\n";
+for (const alojamiento of paisesBuscados) {
+    mensaje = mensaje + alojamiento.id + " - " + alojamiento.ciudad + " - " + alojamiento.nombre + " - " + alojamiento.precioPorNoche + "\n";
+}
+
+let idIngresado;
+let idValido = false;
+
+while (!idValido) {
+    idIngresado = parseInt(prompt(mensaje));
+    if (paisesBuscados.some(alojamiento => alojamiento.id === idIngresado)) {
+        idValido = true;
+    } else {
+        alert("El ID ingresado no es válido. Por favor, ingrese un ID correcto.");
+    }
+}
 
 const alojamientoBuscado = paisesBuscados.find(alojamiento => alojamiento.id === idIngresado);
 console.log(alojamientoBuscado);
 
 let diaInicio = parseInt(prompt("Ingrese el día de entrada"));
 let diaFin = parseInt(prompt("Ingrese el día de salida"));
-let mes = prompt("Ingrese el mes")
+let mes = prompt("Ingrese el mes");
 
 function calcularNoches(diaInicio, diaFin) {
     return diaFin - diaInicio;
@@ -81,8 +95,7 @@ let diferencia = calcularNoches(diaInicio, diaFin);
 
 let precioTotal = diferencia * alojamientoBuscado.precioPorNoche;
 
-console.log("Confirmaste tu reserva para " + alojamientoBuscado.nombre + " en " + alojamientoBuscado.pais + " para la fecha " + diaInicio + " de " + mes + " hasta el " + diaFin +" de " + mes + ", " + cantPersonas +" personas, al precio total de " + precioTotal + "$ por " + diferencia + " noches");
-
+console.log("Confirmaste tu reserva para " + alojamientoBuscado.nombre + " en " + alojamientoBuscado.pais + " para la fecha " + diaInicio + " de " + mes + " hasta el " + diaFin + " de " + mes + ", " + cantPersonas + " personas, al precio total de " + precioTotal + "$ por " + diferencia + " noches");
 
 
 
