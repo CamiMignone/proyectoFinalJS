@@ -1,225 +1,25 @@
 
 
 const alojamientos = [
-    {
-        "id": 1,
-        "pais": "España",
-        "ciudad": "Barcelona",
-        "nombre/descripcion": "Apartamento en el Eixample",
-        "comodidades": ["pileta", "cocina", "vista al paisaje"],
-        "privada/compartida": "privada",
-        "cantidad de personas aceptadas": 4,
-        "distancia": 2,
-        "precio por noche": 120
-    },
-    {
-        "id": 2,
-        "pais": "España",
-        "ciudad": "Madrid",
-        "nombre/descripcion": "Ático en el Centro",
-        "comodidades": ["cocina", "jacuzzi", "vista al paisaje"],
-        "privada/compartida": "privada",
-        "cantidad de personas aceptadas": 4,
-        "distancia": 0.5,
-        "precio por noche": 150
-    },
-    {
-        "id": 3,
-        "pais": "México",
-        "ciudad": "Ciudad de México",
-        "nombre/descripcion": "Casa Colonial en Coyoacán",
-        "comodidades": ["cocina", "jacuzzi", "vista al paisaje"],
-        "privada/compartida": "privada",
-        "cantidad de personas aceptadas": 4,
-        "distancia": 8,
-        "precio por noche": 80
-    },
-    {
-        "id": 4,
-        "pais": "México",
-        "ciudad": "Cancún",
-        "nombre/descripcion": "Resort frente a la playa",
-        "comodidades": ["pileta", "vista al paisaje"],
-        "privada/compartida": "privada",
-        "cantidad de personas aceptadas": 2,
-        "distancia": 0.2,
-        "precio por noche": 200
-    },
-    {
-        "id": 5,
-        "pais": "Argentina",
-        "ciudad": "Buenos Aires",
-        "nombre/descripcion": "Estudio Moderno en Palermo",
-        "comodidades": ["pileta", "cocina"],
-        "privada/compartida": "privada",
-        "cantidad de personas aceptadas": 2,
-        "distancia": 4,
-        "precio por noche": 70
-    },
-    {
-        "id": 6,
-        "pais": "Argentina",
-        "ciudad": "Mendoza",
-        "nombre/descripcion": "Cabaña en los Andes",
-        "comodidades": ["vista al paisaje", "cocina"],
-        "privada/compartida": "privada",
-        "cantidad de personas aceptadas": 4,
-        "distancia": 10,
-        "precio por noche": 90
-    },
-    {
-        "id": 7,
-        "pais": "Italia",
-        "ciudad": "Roma",
-        "nombre/descripcion": "Villa Romántica en el Centro",
-        "comodidades": ["jacuzzi", "vista al paisaje"],
-        "privada/compartida": "privada",
-        "cantidad de personas aceptadas": 2,
-        "distancia": 1,
-        "precio por noche": 180
-    },
-    {
-        "id": 8,
-        "pais": "Italia",
-        "ciudad": "Venecia",
-        "nombre/descripcion": "Apartamento en el Gran Canal",
-        "comodidades": ["cocina", "vista al paisaje"],
-        "privada/compartida": "privada",
-        "cantidad de personas aceptadas": 2,
-        "distancia": 1,
-        "precio por noche": 160
-    },
-    {
-        "id": 9,
-        "pais": "Brasil",
-        "ciudad": "Río de Janeiro",
-        "nombre/descripcion": "Departamento en Copacabana",
-        "comodidades": ["pileta", "cocina"],
-        "privada/compartida": "compartida",
-        "cantidad de personas aceptadas": 4,
-        "distancia": 0.3,
-        "precio por noche": 110
-    },
-    {
-        "id": 10,
-        "pais": "Brasil",
-        "ciudad": "Sao Paulo",
-        "nombre/descripcion": "Loft en el Centro",
-        "comodidades": ["cocina", "vista al paisaje"],
-        "privada/compartida": "compartida",
-        "cantidad de personas aceptadas": 2,
-        "distancia": 0.5,
-        "precio por noche": 90
-    },
-    {
-        "id": 11,
-        "pais": "Japón",
-        "ciudad": "Tokio",
-        "nombre/descripcion": "Apartamento Futurista en Shibuya",
-        "comodidades": ["cocina", "vista al paisaje"],
-        "privada/compartida": "privada",
-        "cantidad de personas aceptadas": 2,
-        "distancia": 2,
-        "precio por noche": 140
-    },
-    {
-        "id": 12,
-        "pais": "Japón",
-        "ciudad": "Kyoto",
-        "nombre/descripcion": "Ryokan Tradicional",
-        "comodidades": ["jacuzzi", "vista al paisaje"],
-        "privada/compartida": "privada",
-        "cantidad de personas aceptadas": 4,
-        "distancia": 1,
-        "precio por noche": 130
-    },
-    {
-        "id": 13,
-        "pais": "Australia",
-        "ciudad": "Sídney",
-        "nombre/descripcion": "Penthouse con Vista al Puerto",
-        "comodidades": ["pileta", "cocina", "vista al paisaje"],
-        "privada/compartida": "privada",
-        "cantidad de personas aceptadas": 4,
-        "distancia": 0.5,
-        "precio por noche": 210
-    },
-    {
-        "id": 14,
-        "pais": "Australia",
-        "ciudad": "Melbourne",
-        "nombre/descripcion": "Apartamento en el Centro",
-        "comodidades": ["cocina", "vista al paisaje"],
-        "privada/compartida": "privada",
-        "cantidad de personas aceptadas": 2,
-        "distancia": 0.3,
-        "precio por noche": 130
-    },
-    {
-        "id": 15,
-        "pais": "Estados Unidos",
-        "ciudad": "Nueva York",
-        "nombre/descripcion": "Estudio en Manhattan",
-        "comodidades": ["cocina", "vista al paisaje"],
-        "privada/compartida": "privada",
-        "cantidad de personas aceptadas": 2,
-        "distancia": 1,
-        "precio por noche": 250
-    },
-    {
-        "id": 16,
-        "pais": "Estados Unidos",
-        "ciudad": "Los Ángeles",
-        "nombre/descripcion": "Casa en Hollywood",
-        "comodidades": ["pileta", "vista al paisaje"],
-        "privada/compartida": "privada",
-        "cantidad de personas aceptadas": 4,
-        "distancia": 5,
-        "precio por noche": 300
-    },
-    {
-        "id": 17,
-        "pais": "Canadá",
-        "ciudad": "Toronto",
-        "nombre/descripcion": "Apartamento en el Centro",
-        "comodidades": ["cocina", "jacuzzi"],
-        "privada/compartida": "compartida",
-        "cantidad de personas aceptadas": 4,
-        "distancia": 1,
-        "precio por noche": 120
-    },
-    {
-        "id": 18,
-        "pais": "Canadá",
-        "ciudad": "Vancouver",
-        "nombre/descripcion": "Casa en el Bosque",
-        "comodidades": ["jacuzzi", "vista al paisaje"],
-        "privada/compartida": "privada",
-        "cantidad de personas aceptadas": 2,
-        "distancia": 10,
-        "precio por noche": 100
-    },
-    {
-        "id": 19,
-        "pais": "Chile",
-        "ciudad": "Santiago",
-        "nombre/descripcion": "Departamento en Providencia",
-        "comodidades": ["pileta", "cocina"],
-        "privada/compartida": "privada",
-        "cantidad de personas aceptadas": 2,
-        "distancia": 3,
-        "precio por noche": 85
-    },
-    {
-        "id": 20,
-        "pais": "Chile",
-        "ciudad": "Valparaíso",
-        "nombre/descripcion": "Casa en los Cerros",
-        "comodidades": ["vista al paisaje", "cocina"],
-        "privada/compartida": "privada",
-        "cantidad de personas aceptadas": 4,
-        "distancia": 2,
-        "precio por noche": 95
-    }
-]
+    { id: 1, pais: "España", ciudad: "Barcelona", nombre: "Apartamento en el Eixample", comodidades: ["pileta", "cocina", "vista al paisaje"], privada: "privada", capacidad: 4, distancia: 2, precioPorNoche: 120 },
+    { id: 2, pais: "España", ciudad: "Madrid", nombre: "Ático en el Centro", comodidades: ["cocina", "jacuzzi", "vista al paisaje"], privada: "privada", capacidad: 4, distancia: 0.5, precioPorNoche: 150 },
+    { id: 3, pais: "México", ciudad: "Ciudad de México", nombre: "Casa Colonial en Coyoacán", comodidades: ["cocina", "jacuzzi", "vista al paisaje"], privada: "privada", capacidad: 4, distancia: 8, precioPorNoche: 80 },
+    { id: 4, pais: "México", ciudad: "Cancún", nombre: "Resort frente a la playa", comodidades: ["pileta", "vista al paisaje"], privada: "privada", capacidad: 2, distancia: 0.2, precioPorNoche: 200 },
+    { id: 5, pais: "Argentina", ciudad: "Buenos Aires", nombre: "Estudio Moderno en Palermo", comodidades: ["pileta", "cocina"], privada: "privada", capacidad: 2, distancia: 4, precioPorNoche: 70 },
+    { id: 6, pais: "Argentina", ciudad: "Mendoza", nombre: "Cabaña en los Andes", comodidades: ["vista al paisaje", "cocina"], privada: "privada", capacidad: 4, distancia: 10, precioPorNoche: 90 },
+    { id: 7, pais: "Italia", ciudad: "Roma", nombre: "Villa Romántica en el Centro", comodidades: ["jacuzzi", "vista al paisaje"], privada: "privada", capacidad: 2, distancia: 1, precioPorNoche: 180 },
+    { id: 8, pais: "Italia", ciudad: "Venecia", nombre: "Apartamento en el Gran Canal", comodidades: ["cocina", "vista al paisaje"], privada: "privada", capacidad: 2, distancia: 1, precioPorNoche: 160 },
+    { id: 9, pais: "Brasil", ciudad: "Río de Janeiro", nombre: "Departamento en Copacabana", comodidades: ["pileta", "cocina"], privada: "compartida", capacidad: 4, distancia: 0.3, precioPorNoche: 110 },
+    { id: 10, pais: "Brasil", ciudad: "Sao Paulo", nombre: "Loft en el Centro", comodidades: ["cocina", "vista al paisaje"], privada: "compartida", capacidad: 2, distancia: 0.5, precioPorNoche: 90 },
+    { id: 11, pais: "Japón", ciudad: "Tokio", nombre: "Apartamento Futurista en Shibuya", comodidades: ["cocina", "vista al paisaje"], privada: "privada", capacidad: 2, distancia: 2, precioPorNoche: 140 },
+    { id: 12, pais: "Japón", ciudad: "Kyoto", nombre: "Ryokan Tradicional", comodidades: ["jacuzzi", "vista al paisaje"], privada: "privada", capacidad: 4, distancia: 1, precioPorNoche: 130 },
+    { id: 13, pais: "Australia", ciudad: "Sídney", nombre: "Penthouse con Vista al Puerto", comodidades: ["pileta", "cocina", "vista al paisaje"], privada: "privada", capacidad: 4, distancia: 0.5, precioPorNoche: 210 },
+    { id: 14, pais: "Australia", ciudad: "Melbourne", nombre: "Apartamento en el Centro", comodidades: ["cocina", "vista al paisaje"], privada: "privada", capacidad: 2, distancia: 0.3, precioPorNoche: 130 },
+    { id: 15, pais: "Estados Unidos", ciudad: "Nueva York", nombre: "Estudio en Manhattan", comodidades: ["cocina", "vista al paisaje"], privada: "privada", capacidad: 2, distancia: 1, precioPorNoche: 250 },
+    { id: 16, pais: "Estados Unidos", ciudad: "Los Ángeles", nombre: "Casa en Hollywood", comodidades: ["pileta", "vista al paisaje"], privada: "privada", capacidad: 4, distancia: 5, precioPorNoche: 300 },
+    { id: 17, pais: "Canadá", ciudad: "Toronto", nombre: "Apartamento en el Centro", comodidades: ["cocina", "jacuzzi"], privada: "compartida", capacidad: 4, distancia: 1, precioPorNoche: 120 },
+    { id: 18, pais: "Canadá", ciudad: "Vancouver", nombre: "Casa en el Bosque", comodidades: ["jacuzzi", "vista al paisaje"], privada: "privada", capacidad: 2, distancia: 10, precioPorNoche: 100 },
+    { id: 19, pais: "Chile", ciudad: "Santiago", nombre: "Departamento en Providencia", comodidades: ["pileta", "cocina"], privada: "privada", capacidad: 2, distancia: 3, precioPorNoche: 85 },
+    { id: 20, pais: "Chile", ciudad: "Valparaíso", nombre: "Casa en los Cerros", comodidades: ["vista al paisaje", "cocina"], privada: "privada", capacidad: 4, distancia: 2, precioPorNoche: 95 }
+];
 
