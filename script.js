@@ -8,7 +8,7 @@ const alojamientos = [
     { id: 7, pais: "Italia", ciudad: "Roma", nombre: "Villa Romántica en el Centro", comodidades: ["jacuzzi", "vista al paisaje"], privada: "privada", capacidad: 2, distancia: 1, precioPorNoche: 180 },
     { id: 8, pais: "Italia", ciudad: "Venecia", nombre: "Apartamento en el Gran Canal", comodidades: ["cocina", "vista al paisaje"], privada: "privada", capacidad: 2, distancia: 1, precioPorNoche: 160 },
     { id: 9, pais: "Brasil", ciudad: "Rio de Janeiro", nombre: "Departamento en Copacabana", comodidades: ["pileta", "cocina"], privada: "compartida", capacidad: 4, distancia: 0.3, precioPorNoche: 110 },
-    { id: 10, pais: "Brasil", ciudad: "São Paulo", nombre: "Loft en el Centro", comodidades: ["cocina", "vista al paisaje"], privada: "compartida", capacidad: 2, distancia: 0.5, precioPorNoche: 90 },
+    { id: 10, pais: "Brasil", ciudad: "Sao Paulo", nombre: "Loft en el Centro", comodidades: ["cocina", "vista al paisaje"], privada: "compartida", capacidad: 2, distancia: 0.5, precioPorNoche: 90 },
     { id: 11, pais: "Japon", ciudad: "Tokio", nombre: "Apartamento Futurista en Shibuya", comodidades: ["cocina", "vista al paisaje"], privada: "privada", capacidad: 2, distancia: 2, precioPorNoche: 140 },
     { id: 12, pais: "Japon", ciudad: "Kyoto", nombre: "Ryokan Tradicional", comodidades: ["jacuzzi", "vista al paisaje"], privada: "privada", capacidad: 4, distancia: 1, precioPorNoche: 130 },
     { id: 13, pais: "Australia", ciudad: "Sidney", nombre: "Penthouse con Vista al Puerto", comodidades: ["pileta", "cocina", "vista al paisaje"], privada: "privada", capacidad: 4, distancia: 0.5, precioPorNoche: 210 },
@@ -26,7 +26,7 @@ const alojamientos = [
     { id: 25, pais: "Argentina", ciudad: "Bariloche", nombre: "Cabaña en la Patagonia", comodidades: ["pileta", "vista al paisaje"], privada: "privada", capacidad: 4, distancia: 5, precioPorNoche: 120 },
     { id: 26, pais: "Argentina", ciudad: "Cordoba", nombre: "Loft en el Centro Histórico", comodidades: ["cocina", "jacuzzi"], privada: "privada", capacidad: 2, distancia: 3, precioPorNoche: 80 },
     { id: 27, pais: "Italia", ciudad: "Florencia", nombre: "Apartamento en el Casco Histórico", comodidades: ["cocina", "vista al paisaje"], privada: "privada", capacidad: 2, distancia: 1, precioPorNoche: 150 },
-    { id: 28, pais: "Italia", ciudad: "Nápoles", nombre: "Casa con Vista al Vesubio", comodidades: ["pileta", "jacuzzi"], privada: "privada", capacidad: 4, distancia: 3, precioPorNoche: 170 },
+    { id: 28, pais: "Italia", ciudad: "Napoles", nombre: "Casa con Vista al Vesubio", comodidades: ["pileta", "jacuzzi"], privada: "privada", capacidad: 4, distancia: 3, precioPorNoche: 170 },
     { id: 29, pais: "Brasil", ciudad: "Salvador", nombre: "Pousada en el Pelourinho", comodidades: ["pileta", "cocina"], privada: "compartida", capacidad: 2, distancia: 1, precioPorNoche: 85 },
     { id: 30, pais: "Brasil", ciudad: "Fortaleza", nombre: "Apartamento en la Playa", comodidades: ["pileta", "vista al paisaje"], privada: "privada", capacidad: 2, distancia: 0.2, precioPorNoche: 120 },
     { id: 31, pais: "Australia", ciudad: "Sidney", nombre: "Apartamento en Bondi Beach", comodidades: ["pileta", "cocina"], privada: "privada", capacidad: 2, distancia: 0.1, precioPorNoche: 190 },
@@ -41,7 +41,7 @@ const alojamientos = [
 
 const paisesDisponibles = [...new Set(alojamientos.map(alojamiento => alojamiento.pais.toLowerCase()))];
 
-let salidaPaises = "Paises disponibles, escribe tu proximo destino\n";
+let salidaPaises = "Paises disponibles, elige tu proximo destino\n";
 for (const pais of paisesDisponibles) {
     salidaPaises = salidaPaises + pais + "\n";
 }
@@ -54,7 +54,7 @@ while (!paisValido) {
     if (paisesDisponibles.includes(paisIngresado)) {
         paisValido = true;
     } else {
-        alert("El país ingresado no está en la lista. Por favor, ingrese un país válido.");
+        alert("El pais ingresado no esta en la lista. Por favor, ingrese un pais válido.");
     }
 }
 
@@ -76,16 +76,28 @@ while (!idValido) {
     if (paisesBuscados.some(alojamiento => alojamiento.id === idIngresado)) {
         idValido = true;
     } else {
-        alert("El ID ingresado no es válido. Por favor, ingrese un ID correcto.");
+        alert("El ID ingresado no es valido. Por favor, ingrese un ID correcto.");
     }
 }
 
 const alojamientoBuscado = paisesBuscados.find(alojamiento => alojamiento.id === idIngresado);
 console.log(alojamientoBuscado);
 
-let diaInicio = parseInt(prompt("Ingrese el día de entrada"));
-let diaFin = parseInt(prompt("Ingrese el día de salida"));
+let diaInicio, diaFin;
+let fechasValidas = false;
+
+while (!fechasValidas) {
+    diaInicio = parseInt(prompt("Ingrese el dia de entrada"));
+    diaFin = parseInt(prompt("Ingrese el dia de salida"));
+    if (diaFin > diaInicio) {
+        fechasValidas = true;
+    } else {
+        alert("El día de salida debe ser posterior al día de entrada. Por favor, ingrese fechas validas.");
+    }
+}
+
 let mes = prompt("Ingrese el mes");
+
 
 function calcularNoches(diaInicio, diaFin) {
     return diaFin - diaInicio;
