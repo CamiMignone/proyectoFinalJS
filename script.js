@@ -39,76 +39,111 @@ const alojamientos = [
     { id: 38, pais: "Chile", ciudad: "Concepcion", nombre: "Departamento en el Centro", comodidades: ["cocina", "vista al paisaje"], privada: "privada", capacidad: 2, distancia: 1, precioPorNoche: 80 }
 ];
 
-const paisesDisponibles = [...new Set(alojamientos.map(alojamiento => alojamiento.pais.toLowerCase()))];
+document.addEventListener('DOMContentLoaded', () => {
+    // Cargar países en el select
+    const paisesDisponibles = [...new Set(alojamientos.map(alojamiento => alojamiento.pais))];
+    const selectPais = document.getElementById('pais');
+    
+    paisesDisponibles.forEach(pais => {
+        const option = document.createElement('option');
+        option.value = pais;
+        option.textContent = pais;
+        selectPais.appendChild(option);
+    });
 
-let salidaPaises = "Paises disponibles, elige tu proximo destino\n";
-for (const pais of paisesDisponibles) {
-    salidaPaises = salidaPaises + pais + "\n";
-}
+    document.getElementById('formularioBusqueda').addEventListener('submit', manejarBusqueda);
+    document.getElementById('formularioReserva').addEventListener('submit', manejarReserva);
+    document.getElementById('botonVolver').addEventListener('click', volverAResultados);
+});
 
-let paisIngresado;
-let paisValido = false;
+function manejarBusqueda(event) {
+    event.preventDefault();
 
-while (!paisValido) {
-    paisIngresado = prompt(salidaPaises).toLowerCase();
-    if (paisesDisponibles.includes(paisIngresado)) {
-        paisValido = true;
+    const pais = document.getElementById('pais').value;
+    const personas = document.getElementById('personas').value;
+
+    const contenedorResultados = document.getElementById('contenedorResultados');
+    contenedorResultados.innerHTML = '';
+
+    const resultados = alojamientos.filter(alojamiento => alojamiento.pais === pais && alojamiento.capacidad >= personas);
+
+    if (resultados.length > 0) {
+        resultados.forEach(resultado => {
+            const tarjeta = crearTarjetaAlojamiento(resultado);
+            contenedorResultados.appendChild(tarjeta);
+        });
     } else {
-        alert("El pais ingresado no esta en la lista. Por favor, ingrese un pais válido.");
+        contenedorResultados.innerHTML = '<p>No se encontraron alojamientos que coincidan con los criterios de búsqueda.</p>';
     }
 }
 
-let cantPersonas = parseInt(prompt("Ingrese la cantidad de personas"));
-
-const paisesBuscados = alojamientos.filter(alojamiento => alojamiento.pais.toLowerCase() === paisIngresado && alojamiento.capacidad >= cantPersonas);
-console.log(paisesBuscados);
-
-let mensaje = "Alojamientos disponibles en " + paisIngresado + ". Seleccione un ID\n";
-for (const alojamiento of paisesBuscados) {
-    mensaje = mensaje + alojamiento.id + " - " + alojamiento.ciudad + " - " + alojamiento.nombre + " - " + alojamiento.precioPorNoche + "\n";
+function crearTarjetaAlojamiento(alojamiento) {
+    const div = document.createElement('div');
+    div.className = 'tarjetaResultado';
+    div.innerHTML = `
+        <p>Ciudad: ${alojamiento.ciudad}</p>
+        <p>Precio por noche: $${alojamiento.precioPorNoche}</p>
+        <button onclick="verDetalles(${alojamiento.id})">Ver más</button>
+    `;
+    return div;
 }
 
-let idIngresado;
-let idValido = false;
+function verDetalles(id) {
+    const alojamientoSeleccionado = alojamientos.find(alojamiento => alojamiento.id === id);
+    localStorage.setItem('alojamientoSeleccionado', JSON.stringify(alojamientoSeleccionado));
 
-while (!idValido) {
-    idIngresado = parseInt(prompt(mensaje));
-    if (paisesBuscados.some(alojamiento => alojamiento.id === idIngresado)) {
-        idValido = true;
-    } else {
-        alert("El ID ingresado no es valido. Por favor, ingrese un ID correcto.");
+    const contenedorDetalles = document.getElementById('contenedorDetalles');
+    contenedorDetalles.innerHTML = `
+        <h3>${alojamientoSeleccionado.nombre}</h3>
+        <p>Ciudad: ${alojamientoSeleccionado.ciudad}</p>
+        <p>Comodidades: ${alojamientoSeleccionado.comodidades.join(', ')}</p>
+        <p>Capacidad: ${alojamientoSeleccionado.capacidad}</p>
+        <p>Distancia: ${alojamientoSeleccionado.distancia} km</p>
+        <p>Precio por noche: $${alojamientoSeleccionado.precioPorNoche}</p>
+        <button onclick="seleccionarAlojamiento(${alojamientoSeleccionado.id})">Reservar</button>
+    `;
+
+    document.getElementById('resultados').style.display = 'none';
+    document.getElementById('detalles').style.display = 'block';
+}
+
+function seleccionarAlojamiento(id) {
+    document.getElementById('detalles').style.display = 'none';
+    document.getElementById('formularioReserva').style.display = 'block';
+}
+
+function volverAResultados() {
+    document.getElementById('detalles').style.display = 'none';
+    document.getElementById('resultados').style.display = 'block';
+}
+
+function manejarReserva(event) {
+    event.preventDefault();
+
+    const checkin = new Date(document.getElementById('entrada').value);
+    const checkout = new Date(document.getElementById('salida').value);
+
+    if (checkout <= checkin) {
+        alert("La fecha de salida debe ser después de la fecha de entrada. Por favor, ingrese fechas válidas.");
+        return;
     }
+
+    const alojamientoSeleccionado = JSON.parse(localStorage.getItem('alojamientoSeleccionado'));
+    const diferencia = (checkout - checkin) / (1000 * 60 * 60 * 24); // Días
+    const precioTotal = diferencia * alojamientoSeleccionado.precioPorNoche;
+
+    const confirmacion = document.getElementById('confirmacion');
+    confirmacion.innerHTML = `
+        <p>¡Reserva confirmada!</p>
+        <p>Detalles:</p>
+        <p>Alojamiento: ${alojamientoSeleccionado.nombre}</p>
+        <p>Fecha de entrada: ${checkin.toLocaleDateString()}</p>
+        <p>Fecha de salida: ${checkout.toLocaleDateString()}</p>
+        <p>Precio total: $${precioTotal.toFixed(2)}</p>
+    `;
+
+    document.getElementById('formularioReserva').style.display = 'none';
 }
-
-const alojamientoBuscado = paisesBuscados.find(alojamiento => alojamiento.id === idIngresado);
-console.log(alojamientoBuscado);
-
-let diaInicio, diaFin;
-let fechasValidas = false;
-
-while (!fechasValidas) {
-    diaInicio = parseInt(prompt("Ingrese el dia de entrada"));
-    diaFin = parseInt(prompt("Ingrese el dia de salida"));
-    if (diaFin > diaInicio) {
-        fechasValidas = true;
-    } else {
-        alert("El día de salida debe ser posterior al día de entrada. Por favor, ingrese fechas validas.");
-    }
-}
-
-let mes = prompt("Ingrese el mes");
-
-
-function calcularNoches(diaInicio, diaFin) {
-    return diaFin - diaInicio;
-}
-
-let diferencia = calcularNoches(diaInicio, diaFin);
-
-let precioTotal = diferencia * alojamientoBuscado.precioPorNoche;
-
-console.log("Confirmaste tu reserva para " + alojamientoBuscado.nombre + " en " + alojamientoBuscado.pais + " para la fecha " + diaInicio + " de " + mes + " hasta el " + diaFin + " de " + mes + ", " + cantPersonas + " personas, al precio total de " + precioTotal + "$ por " + diferencia + " noches");
-
 
 
 
