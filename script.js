@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.getElementById('formularioBusqueda').addEventListener('submit', manejarBusqueda);
-    document.getElementById('formularioReserva').addEventListener('submit', manejarReserva);
+    document.getElementById('formularioPagoDatos').addEventListener('submit', manejarPago);
     document.getElementById('botonVolver').addEventListener('click', volverAResultados);
 });
 
@@ -60,12 +60,22 @@ function manejarBusqueda(event) {
     event.preventDefault();
 
     const pais = document.getElementById('pais').value;
-    const personas = document.getElementById('personas').value;
+    const personas = parseInt(document.getElementById('personas').value, 10);
+    const checkin = new Date(document.getElementById('entrada').value);
+    const checkout = new Date(document.getElementById('salida').value);
+
+    if (checkout <= checkin) {
+        alert("La fecha de salida debe ser después de la fecha de entrada. Por favor, ingrese fechas válidas.");
+        return;
+    }
 
     const contenedorResultados = document.getElementById('contenedorResultados');
     contenedorResultados.innerHTML = '';
 
-    const resultados = alojamientos.filter(alojamiento => alojamiento.pais === pais && alojamiento.capacidad >= personas);
+    const resultados = alojamientos.filter(alojamiento => {
+        return alojamiento.pais === pais &&
+               alojamiento.capacidad >= personas;
+    });
 
     if (resultados.length > 0) {
         resultados.forEach(resultado => {
@@ -75,6 +85,9 @@ function manejarBusqueda(event) {
     } else {
         contenedorResultados.innerHTML = '<p>No se encontraron alojamientos que coincidan con los criterios de búsqueda.</p>';
     }
+
+    // Guardar fechas en localStorage
+    localStorage.setItem('fechasBusqueda', JSON.stringify({ checkin: checkin.toISOString(), checkout: checkout.toISOString() }));
 }
 
 function crearTarjetaAlojamiento(alojamiento) {
@@ -90,7 +103,14 @@ function crearTarjetaAlojamiento(alojamiento) {
 
 function verDetalles(id) {
     const alojamientoSeleccionado = alojamientos.find(alojamiento => alojamiento.id === id);
-    localStorage.setItem('alojamientoSeleccionado', JSON.stringify(alojamientoSeleccionado));
+    const fechasBusqueda = JSON.parse(localStorage.getItem('fechasBusqueda'));
+
+    if (fechasBusqueda) {
+        localStorage.setItem('alojamientoSeleccionado', JSON.stringify({
+            alojamiento: alojamientoSeleccionado,
+            fechas: fechasBusqueda
+        }));
+    }
 
     const contenedorDetalles = document.getElementById('contenedorDetalles');
     contenedorDetalles.innerHTML = `
@@ -109,7 +129,7 @@ function verDetalles(id) {
 
 function seleccionarAlojamiento(id) {
     document.getElementById('detalles').style.display = 'none';
-    document.getElementById('formularioReserva').style.display = 'block';
+    document.getElementById('formularioPago').style.display = 'block';
 }
 
 function volverAResultados() {
@@ -117,32 +137,41 @@ function volverAResultados() {
     document.getElementById('resultados').style.display = 'block';
 }
 
-function manejarReserva(event) {
+function manejarPago(event) {
     event.preventDefault();
 
-    const checkin = new Date(document.getElementById('entrada').value);
-    const checkout = new Date(document.getElementById('salida').value);
+    const nombre = document.getElementById('nombre').value;
+    const numeroTarjeta = document.getElementById('numeroTarjeta').value;
+    const fechaExpiracion = document.getElementById('fechaExpiracion').value;
+    const cvv = document.getElementById('cvv').value;
 
-    if (checkout <= checkin) {
-        alert("La fecha de salida debe ser después de la fecha de entrada. Por favor, ingrese fechas válidas.");
-        return;
-    }
+    // Aquí podrías realizar una validación de los datos de pago
+    // y procesar el pago si fuera necesario.
 
     const alojamientoSeleccionado = JSON.parse(localStorage.getItem('alojamientoSeleccionado'));
+    const fechas = alojamientoSeleccionado.fechas;
+    const checkin = new Date(fechas.checkin);
+    const checkout = new Date(fechas.checkout);
+
     const diferencia = (checkout - checkin) / (1000 * 60 * 60 * 24); // Días
-    const precioTotal = diferencia * alojamientoSeleccionado.precioPorNoche;
+    const precioTotal = diferencia * alojamientoSeleccionado.alojamiento.precioPorNoche;
 
     const confirmacion = document.getElementById('confirmacion');
     confirmacion.innerHTML = `
         <p>¡Reserva confirmada!</p>
         <p>Detalles:</p>
-        <p>Alojamiento: ${alojamientoSeleccionado.nombre}</p>
+        <p>Alojamiento: ${alojamientoSeleccionado.alojamiento.nombre}</p>
         <p>Fecha de entrada: ${checkin.toLocaleDateString()}</p>
         <p>Fecha de salida: ${checkout.toLocaleDateString()}</p>
         <p>Precio total: $${precioTotal.toFixed(2)}</p>
+        <p>Nombre en la tarjeta: ${nombre}</p>
+        <p>Número de tarjeta: ${numeroTarjeta}</p>
+        <p>Fecha de expiración: ${fechaExpiracion}</p>
+        <p>CVV: ${cvv}</p>
     `;
 
-    document.getElementById('formularioReserva').style.display = 'none';
+    document.getElementById('formularioPago').style.display = 'none';
+    document.getElementById('confirmacion').style.display = 'block';
 }
 
 
