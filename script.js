@@ -39,50 +39,64 @@ const alojamientos = [
     { id: 38, pais: "Chile", ciudad: "Concepcion", nombre: "Departamento en el Centro", comodidades: ["cocina", "vista al paisaje"], privada: "privada", capacidad: 2, distancia: 1, precioPorNoche: 80, rutaImagen: "img5.jpg"  }
 ];
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
     // Cargar países en el select
     const paisesDisponibles = [...new Set(alojamientos.map(alojamiento => alojamiento.pais))];
-    const selectPais = document.getElementById('pais');
+    const selectPais = document.getElementById("pais");
     
     paisesDisponibles.forEach(pais => {
-        const option = document.createElement('option');
+        const option = document.createElement("option");
         option.value = pais;
         option.textContent = pais;
         selectPais.appendChild(option);
     });
 
-    document.getElementById('formularioBusqueda').addEventListener('submit', manejarBusqueda);
-    document.getElementById('formularioPagoDatos').addEventListener('submit', manejarPago);
-    document.getElementById('botonVolver').addEventListener('click', volverAResultados);
-    document.getElementById('botonVolverPago').addEventListener('click', volverAResultados);
+    document.getElementById("formularioBusqueda").addEventListener("submit", manejarBusqueda);
+    document.getElementById("formularioPagoDatos").addEventListener("submit", manejarPago);
+    document.getElementById("botonVolver").addEventListener("click", volverAResultados);
+    document.getElementById("botonVolverPago").addEventListener("click", volverAResultados);
 
-    document.querySelector('a[href="#inicio"]').addEventListener('click', (event) => {
+    document.querySelector("a[href=\"#inicio\"]").addEventListener("click", (event) => {
         event.preventDefault();
-        mostrarSeccion('buscar');
+        mostrarSeccion("buscar");
     });
 
+    mostrarSeccion("buscar");
 });
 
 function manejarBusqueda(event) {
     event.preventDefault();
 
-    const pais = document.getElementById('pais').value;
-    const personas = parseInt(document.getElementById('personas').value, 10);
-    const checkin = new Date(document.getElementById('entrada').value);
-    const checkout = new Date(document.getElementById('salida').value);
+    const pais = document.getElementById("pais").value;
+    const personas = parseInt(document.getElementById("personas").value, 10);
+    const checkin = new Date(document.getElementById("entrada").value);
+    const checkout = new Date(document.getElementById("salida").value);
 
     if (checkout <= checkin) {
         alert("La fecha de salida debe ser después de la fecha de entrada. Por favor, ingrese fechas válidas.");
         return;
     }
 
-    const contenedorResultados = document.getElementById('contenedorResultados');
-    contenedorResultados.innerHTML = '';
+    if (personas > 4) {
+        alert("Maximo 4 personas");
+        return;
+    }
 
     const resultados = alojamientos.filter(alojamiento => {
         return alojamiento.pais === pais &&
                alojamiento.capacidad >= personas;
     });
+
+    localStorage.setItem("resultadosBusqueda", JSON.stringify(resultados));
+    localStorage.setItem("fechasBusqueda", JSON.stringify({ checkin: checkin.toISOString(), checkout: checkout.toISOString() }));
+
+    mostrarResultados(resultados);
+    mostrarSeccion("resultados");
+}
+
+function mostrarResultados(resultados) {
+    const contenedorResultados = document.getElementById("contenedorResultados");
+    contenedorResultados.innerHTML = "";
 
     if (resultados.length > 0) {
         resultados.forEach(resultado => {
@@ -90,72 +104,84 @@ function manejarBusqueda(event) {
             contenedorResultados.appendChild(tarjeta);
         });
     } else {
-        contenedorResultados.innerHTML = '<p>No se encontraron alojamientos que coincidan con los criterios de búsqueda.</p>';
+        contenedorResultados.innerHTML = "<p>No se encontraron alojamientos que coincidan con los criterios de búsqueda.</p>";
     }
-
-    // Guardar fechas en localStorage
-    localStorage.setItem('fechasBusqueda', JSON.stringify({ checkin: checkin.toISOString(), checkout: checkout.toISOString() }));
-
-    // Mostrar sección de resultados
-    mostrarSeccion('resultados');
 }
 
 function crearTarjetaAlojamiento(alojamiento) {
-    const div = document.createElement('div');
-    div.className = 'tarjetaResultado';
+    const div = document.createElement("div");
+    div.className = "tarjetaResultado";
     div.innerHTML = `
-        <h3>${alojamiento.nombre}</h3>
         <img src=./img/${alojamiento.rutaImagen}>
-        <p>${alojamiento.ciudad}</p>
-        <p>Precio por noche: $${alojamiento.precioPorNoche}</p>
-        <button onclick="verDetalles(${alojamiento.id})">Ver más</button>
+        <div class=texto>
+            <h3>${alojamiento.nombre}</h3>
+            <p>${alojamiento.ciudad}</p>
+            <p>Precio por noche: $${alojamiento.precioPorNoche}</p>
+            <button onclick="verDetalles(${alojamiento.id})">Ver más</button>
+        </div>
     `;
     return div;
 }
 
 function verDetalles(id) {
     const alojamientoSeleccionado = alojamientos.find(alojamiento => alojamiento.id === id);
-    const fechasBusqueda = JSON.parse(localStorage.getItem('fechasBusqueda'));
+    const fechasBusqueda = JSON.parse(localStorage.getItem("fechasBusqueda"));
 
     if (fechasBusqueda) {
-        localStorage.setItem('alojamientoSeleccionado', JSON.stringify({
+        localStorage.setItem("alojamientoSeleccionado", JSON.stringify({
             alojamiento: alojamientoSeleccionado,
             fechas: fechasBusqueda
         }));
     }
 
-    const contenedorDetalles = document.getElementById('contenedorDetalles');
+    const contenedorDetalles = document.getElementById("contenedorDetalles");
     contenedorDetalles.innerHTML = `
         <h3>${alojamientoSeleccionado.nombre}</h3>
+        <p>${alojamientoSeleccionado.ciudad}</p>
         <img src=./img/${alojamientoSeleccionado.rutaImagen}>
-        <p>Ciudad: ${alojamientoSeleccionado.ciudad}</p>
-        <p>Comodidades: ${alojamientoSeleccionado.comodidades.join(', ')}</p>
-        <p>Capacidad: ${alojamientoSeleccionado.capacidad}</p>
-        <p>Distancia del centro: ${alojamientoSeleccionado.distancia} km</p>
-        <p>Precio por noche: $${alojamientoSeleccionado.precioPorNoche}</p>
+        <div class=texto>
+        <p>Vive una experiencia exclusiva con el servicio de primera clase en ${alojamientoSeleccionado.nombre}</p>
+    <p>Situado en ${alojamientoSeleccionado.ciudad}, ${alojamientoSeleccionado.pais}, ${alojamientoSeleccionado.nombre} ofrece una experiencia inolvidable.</p>
+    <p>Las ${alojamientoSeleccionado.capacidad} habitaciones han sido diseñadas y estudiadas hasta el mínimo detalle para garantizar el máximo confort: minibar, máquina de café espresso, bebidas y snacks secos, línea de baño exclusiva, pantuflas de lujo, kit de bienestar con albornoces, chanclas y bolsa, conexión a internet WiFi de alta velocidad, menú de almohadas y servicio de limpieza dos veces al día.</p>
+    <p>Cada alojamiento también se caracteriza por su propia identidad: en ${alojamientoSeleccionado.nombre} encontrarás habitaciones con camas colgantes, habitaciones con jacuzzi privado panorámico, habitaciones con bañera exenta en el centro de la habitación, pero todas con un punto en común: el paisaje.</p>
+    <p>No te pierdas las experiencias exclusivas para unas vacaciones realmente únicas! Reserva un desayuno flotante, un desayuno con alpacas, o una cena romántica.</p>
+    El servicio de conserjería te ayudará con la reserva de servicios adicionales como tours en helicóptero, traslados de lujo desde y hacia tu destino, actividades al aire libre.
+    El personal estará a tu disposición para servicios románticos dedicados como el Set de Amor y el Planificador de Eventos para la organización de tus momentos especiales.
+    Como huésped, disfrutarás de ${alojamientoSeleccionado.comodidades} todas las tardes.
+    <p>Cada mañana te espera un desayuno a la carta, mientras que para el almuerzo podrás disfrutar de un menú junto a la piscina o de platos de bistró. Para la cena, encontrarás un restaurante contemporáneo o típico y una amplia variedad de platos para satisfacer todos los paladares.</p>
+    <p>Las parejas aprecian mucho la ubicación: la han valorado con un 9,1 para un viaje en pareja.</p>
+    <p>Este alojamiento se encuentra a solo ${alojamientoSeleccionado.distancia} kilómetros del centro de la ciudad y ofrece una vista impresionante del paisaje. Disfruta de las comodidades como ${alojamientoSeleccionado.comodidades.join(", ")} y relájate en este ambiente ${alojamientoSeleccionado.privada}. El precio por noche es de $${alojamientoSeleccionado.precioPorNoche}, lo que lo convierte en una opción excelente para tu próximo viaje.</p>
         <button onclick="seleccionarAlojamiento(${alojamientoSeleccionado.id})">Reservar</button>
-    `;
+        </div>
+        `;
 
-    mostrarSeccion('detalles');
+    mostrarSeccion("detalles");
 }
 
 function seleccionarAlojamiento(id) {
-    mostrarSeccion('formularioPago');
+    mostrarSeccion("formularioPago");
 }
 
 function volverAResultados() {
-    mostrarSeccion('resultados');
+    const resultadosGuardados = JSON.parse(localStorage.getItem("resultadosBusqueda"));
+    if (resultadosGuardados) {
+        mostrarResultados(resultadosGuardados);
+    } else {
+        const contenedorResultados = document.getElementById("contenedorResultados");
+        contenedorResultados.innerHTML = "<p>No se encontraron alojamientos que coincidan con los criterios de búsqueda.</p>";
+    }
+    mostrarSeccion("resultados");
 }
 
 function manejarPago(event) {
     event.preventDefault();
 
-    const nombre = document.getElementById('nombre').value;
-    const numeroTarjeta = document.getElementById('numeroTarjeta').value;
-    const fechaExpiracion = document.getElementById('fechaExpiracion').value;
-    const cvv = document.getElementById('cvv').value;
+    const nombre = document.getElementById("nombre").value;
+    const numeroTarjeta = document.getElementById("numeroTarjeta").value;
+    const fechaExpiracion = document.getElementById("fechaExpiracion").value;
+    const cvv = document.getElementById("cvv").value;
 
-    const alojamientoSeleccionado = JSON.parse(localStorage.getItem('alojamientoSeleccionado'));
+    const alojamientoSeleccionado = JSON.parse(localStorage.getItem("alojamientoSeleccionado"));
     const fechas = alojamientoSeleccionado.fechas;
     const checkin = new Date(fechas.checkin);
     const checkout = new Date(fechas.checkout);
@@ -163,7 +189,7 @@ function manejarPago(event) {
     const diferencia = (checkout - checkin) / (1000 * 60 * 60 * 24); // Días
     const precioTotal = diferencia * alojamientoSeleccionado.alojamiento.precioPorNoche;
 
-    const confirmacion = document.getElementById('confirmacion');
+    const confirmacion = document.getElementById("confirmacion");
     confirmacion.innerHTML = `
         <p>¡Reserva confirmada!</p>
         <p>Detalles:</p>
@@ -173,13 +199,22 @@ function manejarPago(event) {
         <p>Precio total: $${precioTotal}</p>
     `;
 
-    mostrarSeccion('confirmacion');
+    mostrarSeccion("confirmacion");
 }
 
 function mostrarSeccion(seccion) {
-    const secciones = ['buscar', 'resultados', 'detalles', 'formularioPago', 'confirmacion'];
+    const secciones = ["buscar", "resultados", "detalles", "formularioPago", "confirmacion"];
     secciones.forEach(id => {
-        document.getElementById(id).style.display = id === seccion ? 'block' : 'none';
+        if (id === "buscar") {
+            // Mostrar 'buscar' y recuperar resultados si existen
+            document.getElementById(id).style.display = "block";
+            const resultadosGuardados = JSON.parse(localStorage.getItem("resultadosBusqueda"));
+            if (resultadosGuardados) {
+                mostrarResultados(resultadosGuardados);
+            }
+        } else {
+            document.getElementById(id).style.display = id === seccion ? "block" : "none";
+        }
     });
 }
 
