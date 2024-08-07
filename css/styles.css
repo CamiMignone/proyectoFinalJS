@@ -42,24 +42,52 @@ section {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-#formularioBusqueda label,
-#formularioReserva label {
-    display: block;
-    margin: 10px 0 5px;
+
+#formularioBusqueda {
+    display: flex;
+    border-radius: 5px;
+    justify-content: center;
 }
+
+#formularioBusqueda button:hover {
+    filter: brightness(80%);
+    
+}
+
+#formularioBusqueda #personas {
+    width: 100px;
+
+}
+
 
 #formularioBusqueda input,
 #formularioBusqueda button,
 #formularioBusqueda select,
 #formularioReserva input,
 #formularioReserva button {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
+    margin: 3px;
+    padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
 }
+
+#formularioPagoDatos {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+#formularioPagoDatos input{
+    padding: 5px;
+}
+
+
+#formularioPagoDatos #cvv {
+    width: 60px;
+}
+
+
 
 #contenedorResultados {
     display: flex;

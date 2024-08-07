@@ -1,80 +1,91 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Reserva de Alojamiento</title>
-    <link rel="stylesheet" href="./css/styles.css">
-</head>
-<body>
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
     <header>
-        <h1>Reserva de Alojamiento</h1>
-        <nav>
-            <ul>
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#buscar">Buscar</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
-        </nav>
+      <h1>Reserva de Alojamiento</h1>
+      <nav>
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#buscar">Buscar</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
     </header>
 
     <section id="buscar">
-        <h2>Buscar Alojamiento</h2>
-        <form id="formularioBusqueda">
-            <label for="pais">País:</label>
-            <select id="pais">
-                <!-- Opciones se llenan dinámicamente -->
-            </select>
-            
-            <label for="personas">Número de personas:</label>
-            <input type="number" id="personas" min="1" required>
-            
-            <label for="entrada">Fecha de entrada:</label>
-            <input type="date" id="entrada" required>
-            
-            <label for="salida">Fecha de salida:</label>
-            <input type="date" id="salida" required>
-            
-            <button type="submit">Buscar</button>
-        </form>
+      <h2>Buscar Alojamiento</h2>
+      <form id="formularioBusqueda">
+        <select id="pais">
+          <!-- Opciones se llenan dinámicamente -->
+        </select>
+
+        <input type="date" id="entrada" required />
+
+        <input type="date" id="salida" required />
+
+        <input type="number" id="personas" min="1" required />
+
+        <button type="submit">Buscar</button>
+      </form>
     </section>
 
     <section id="resultados">
-        <h2>Resultados de Búsqueda</h2>
-        <div id="contenedorResultados"></div>
+      <h2>Resultados de Búsqueda</h2>
+      <div id="contenedorResultados"></div>
     </section>
 
-    <section id="detalles" style="display:none;">
-        <h2>Detalles del Alojamiento</h2>
-        <div id="contenedorDetalles"></div>
-        <button id="botonVolver">Volver Atrás</button>
+    <section id="detalles" style="display: none">
+      <h2>Detalles del Alojamiento</h2>
+      <div id="contenedorDetalles"></div>
+      <button id="botonVolver">Volver Atrás</button>
     </section>
 
-    <div id="formularioPago" style="display: none;">
-        <h3>Detalles de Pago</h3>
-        <form id="formularioPagoDatos">
-            <label for="nombre">Nombre en la Tarjeta:</label>
-            <input type="text" id="nombre" required>
-            
-            <label for="numeroTarjeta">Número de Tarjeta:</label>
-            <input type="text" id="numeroTarjeta" required>
-            
-            <label for="fechaExpiracion">Fecha de Expiración:</label>
-            <input type="month" id="fechaExpiracion" required>
-            
-            <label for="cvv">CVV:</label>
-            <input type="text" id="cvv" required>
-            
-            <button type="submit">Pagar</button>
-        </form>
+    <div id="formularioPago" style="display: none">
+      <h3>Ingresa tus datos</h3>
+      <form id="formularioPagoDatos">
+        <label for="nombreUsuario">Nombre</label>
+        <input type="text" id="nombreUsuario" required />
+
+        <label for="apellido">Apellido</label>
+        <input type="text" id="apellido" required />
+
+        <label for="correo">Correo</label>
+        <input type="email" id="correo" required />
+
+        <label for="telefono">Telefono</label>
+        <input type="number" id="correo" required />
+
+        <label for="nombre">Nombre en la Tarjeta</label>
+        <input type="text" id="nombre" required />
+
+        <label for="numeroTarjeta">Número de Tarjeta</label>
+        <input type="text" id="numeroTarjeta" required />
+
+        <label for="fechaExpiracion">Fecha de Expiración</label>
+        <input type="month" id="fechaExpiracion" required />
+
+        <label for="cvv">CVV</label>
+        <input type="text" id="cvv" required />
+
+        <label for="checkbox">Quiero recibir la confirmacion digital</label>
+        <input type="checkbox">
+
+        <button type="submit">Pagar</button>
+      </form>
     </div>
-    
-    <div id="confirmacion" style="display: none;"></div>
+
+    <div id="confirmacion" style="display: none"></div>
 
     <footer>
-        <p>&copy; 2024 Reserva de Alojamiento. Todos los derechos reservados.</p>
+      <p>2024 Reserva de Alojamiento. Todos los derechos reservados.</p>
     </footer>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>

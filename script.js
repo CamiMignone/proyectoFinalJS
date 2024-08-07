@@ -94,7 +94,8 @@ function crearTarjetaAlojamiento(alojamiento) {
     const div = document.createElement('div');
     div.className = 'tarjetaResultado';
     div.innerHTML = `
-        <p>Ciudad: ${alojamiento.ciudad}</p>
+        <h3>${alojamiento.nombre}</h3>
+        <p>${alojamiento.ciudad}</p>
         <p>Precio por noche: $${alojamiento.precioPorNoche}</p>
         <button onclick="verDetalles(${alojamiento.id})">Ver más</button>
     `;
@@ -118,7 +119,7 @@ function verDetalles(id) {
         <p>Ciudad: ${alojamientoSeleccionado.ciudad}</p>
         <p>Comodidades: ${alojamientoSeleccionado.comodidades.join(', ')}</p>
         <p>Capacidad: ${alojamientoSeleccionado.capacidad}</p>
-        <p>Distancia: ${alojamientoSeleccionado.distancia} km</p>
+        <p>Distancia del centro: ${alojamientoSeleccionado.distancia} km</p>
         <p>Precio por noche: $${alojamientoSeleccionado.precioPorNoche}</p>
         <button onclick="seleccionarAlojamiento(${alojamientoSeleccionado.id})">Reservar</button>
     `;
@@ -145,9 +146,6 @@ function manejarPago(event) {
     const fechaExpiracion = document.getElementById('fechaExpiracion').value;
     const cvv = document.getElementById('cvv').value;
 
-    // Aquí podrías realizar una validación de los datos de pago
-    // y procesar el pago si fuera necesario.
-
     const alojamientoSeleccionado = JSON.parse(localStorage.getItem('alojamientoSeleccionado'));
     const fechas = alojamientoSeleccionado.fechas;
     const checkin = new Date(fechas.checkin);
@@ -164,10 +162,6 @@ function manejarPago(event) {
         <p>Fecha de entrada: ${checkin.toLocaleDateString()}</p>
         <p>Fecha de salida: ${checkout.toLocaleDateString()}</p>
         <p>Precio total: $${precioTotal.toFixed(2)}</p>
-        <p>Nombre en la tarjeta: ${nombre}</p>
-        <p>Número de tarjeta: ${numeroTarjeta}</p>
-        <p>Fecha de expiración: ${fechaExpiracion}</p>
-        <p>CVV: ${cvv}</p>
     `;
 
     document.getElementById('formularioPago').style.display = 'none';
