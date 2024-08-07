@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Raleway", sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
@@ -77,6 +77,15 @@ section {
     box-sizing: border-box;
 }
 
+#formularioPagos{
+    display: flex;
+    background-color:#8b9eb1;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin: 30px 0px;
+}
+
 
 
 #formularioPagoDatos {
@@ -149,18 +158,30 @@ section {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-#contenedorDetalles .texto{
+#contenedorDetalles .texto {
     background-color: #FFFFFF;
     border-top: 1px solid #DDD;
     border-radius: 8px;
     padding: 0px 15px 15px;
 }
 
-#contenedorDetalles img{
+#contenedorDetalles img {
     width: 700px;
     height: 400px;
     object-fit: cover;
 }
+
+#confirmacion {
+    display: flex;
+    background-color:#8b9eb1;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin: 30px 0px;
+}
+
+
+
 
 button{
     background-color:#2C3E50;
