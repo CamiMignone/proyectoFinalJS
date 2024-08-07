@@ -54,6 +54,17 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('formularioBusqueda').addEventListener('submit', manejarBusqueda);
     document.getElementById('formularioPagoDatos').addEventListener('submit', manejarPago);
     document.getElementById('botonVolver').addEventListener('click', volverAResultados);
+    document.getElementById('botonVolverPago').addEventListener('click', volverAResultados);
+
+    document.querySelector('a[href="#inicio"]').addEventListener('click', (event) => {
+        event.preventDefault();
+        mostrarSeccion('buscar');
+    });
+
+    document.querySelector('a[href="#buscar"]').addEventListener('click', (event) => {
+        event.preventDefault();
+        mostrarSeccion('resultados');
+    });
 });
 
 function manejarBusqueda(event) {
@@ -88,6 +99,9 @@ function manejarBusqueda(event) {
 
     // Guardar fechas en localStorage
     localStorage.setItem('fechasBusqueda', JSON.stringify({ checkin: checkin.toISOString(), checkout: checkout.toISOString() }));
+
+    // Mostrar sección de resultados
+    mostrarSeccion('resultados');
 }
 
 function crearTarjetaAlojamiento(alojamiento) {
@@ -124,18 +138,15 @@ function verDetalles(id) {
         <button onclick="seleccionarAlojamiento(${alojamientoSeleccionado.id})">Reservar</button>
     `;
 
-    document.getElementById('resultados').style.display = 'none';
-    document.getElementById('detalles').style.display = 'block';
+    mostrarSeccion('detalles');
 }
 
 function seleccionarAlojamiento(id) {
-    document.getElementById('detalles').style.display = 'none';
-    document.getElementById('formularioPago').style.display = 'block';
+    mostrarSeccion('formularioPago');
 }
 
 function volverAResultados() {
-    document.getElementById('detalles').style.display = 'none';
-    document.getElementById('resultados').style.display = 'block';
+    mostrarSeccion('resultados');
 }
 
 function manejarPago(event) {
@@ -159,13 +170,19 @@ function manejarPago(event) {
         <p>¡Reserva confirmada!</p>
         <p>Detalles:</p>
         <p>Alojamiento: ${alojamientoSeleccionado.alojamiento.nombre}</p>
-        <p>Fecha de entrada: ${checkin.toLocaleDateString()}</p>
-        <p>Fecha de salida: ${checkout.toLocaleDateString()}</p>
-        <p>Precio total: $${precioTotal.toFixed(2)}</p>
+        <p>Check-in: ${checkin.toDateString()}</p>
+        <p>Check-out: ${checkout.toDateString()}</p>
+        <p>Precio total: $${precioTotal}</p>
     `;
 
-    document.getElementById('formularioPago').style.display = 'none';
-    document.getElementById('confirmacion').style.display = 'block';
+    mostrarSeccion('confirmacion');
+}
+
+function mostrarSeccion(seccion) {
+    const secciones = ['buscar', 'resultados', 'detalles', 'formularioPago', 'confirmacion'];
+    secciones.forEach(id => {
+        document.getElementById(id).style.display = id === seccion ? 'block' : 'none';
+    });
 }
 
 
