@@ -40,7 +40,6 @@ const alojamientos = [
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Cargar países en el select
     const paisesDisponibles = [...new Set(alojamientos.map(alojamiento => alojamiento.pais))];
     const selectPais = document.getElementById("pais");
     
@@ -51,6 +50,14 @@ document.addEventListener("DOMContentLoaded", () => {
         selectPais.appendChild(option);
     });
 
+    const busquedaAlmacenada = JSON.parse(localStorage.getItem("resultadosBusqueda"));
+    if (busquedaAlmacenada) {
+        mostrarResultados(busquedaAlmacenada);
+        mostrarSeccion("resultados");
+    } else {
+        mostrarSeccion("buscar");
+    }
+
     document.getElementById("formularioBusqueda").addEventListener("submit", manejarBusqueda);
     document.getElementById("formularioPagoDatos").addEventListener("submit", manejarPago);
     document.getElementById("botonVolver").addEventListener("click", volverAResultados);
@@ -59,9 +66,13 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector("a[href=\"#inicio\"]").addEventListener("click", (event) => {
         event.preventDefault();
         mostrarSeccion("buscar");
+        localStorage.clear(); 
     });
 
-    mostrarSeccion("buscar");
+    const detallesAlmacenados = JSON.parse(localStorage.getItem("alojamientoSeleccionado"));
+    if (detallesAlmacenados) {
+        verDetalles(detallesAlmacenados.alojamiento.id);
+    }
 });
 
 function manejarBusqueda(event) {
@@ -73,18 +84,17 @@ function manejarBusqueda(event) {
     const checkout = new Date(document.getElementById("salida").value);
 
     if (checkout <= checkin) {
-        alert("La fecha de salida debe ser después de la fecha de entrada. Por favor, ingrese fechas válidas.");
+        mostrarMensaje("error", "La fecha de salida debe ser después de la fecha de entrada. Por favor, ingrese fechas válidas.");
         return;
     }
 
     if (personas > 4) {
-        alert("Maximo 4 personas");
+        mostrarMensaje("error", "Máximo 4 personas.");
         return;
     }
 
     const resultados = alojamientos.filter(alojamiento => {
-        return alojamiento.pais === pais &&
-               alojamiento.capacidad >= personas;
+        return alojamiento.pais === pais && alojamiento.capacidad >= personas;
     });
 
     localStorage.setItem("resultadosBusqueda", JSON.stringify(resultados));
@@ -146,9 +156,6 @@ function verDetalles(id) {
     <p>Las ${alojamientoSeleccionado.capacidad} habitaciones han sido diseñadas y estudiadas hasta el mínimo detalle para garantizar el máximo confort: minibar, máquina de café espresso, bebidas y snacks secos, línea de baño exclusiva, pantuflas de lujo, kit de bienestar con albornoces, chanclas y bolsa, conexión a internet WiFi de alta velocidad, menú de almohadas y servicio de limpieza dos veces al día.</p>
     <p>Cada alojamiento también se caracteriza por su propia identidad: en ${alojamientoSeleccionado.nombre} encontrarás habitaciones con camas colgantes, habitaciones con jacuzzi privado panorámico, habitaciones con bañera exenta en el centro de la habitación, pero todas con un punto en común: el paisaje.</p>
     <p>No te pierdas las experiencias exclusivas para unas vacaciones realmente únicas! Reserva un desayuno flotante, un desayuno con alpacas, o una cena romántica.</p>
-    El servicio de conserjería te ayudará con la reserva de servicios adicionales como tours en helicóptero, traslados de lujo desde y hacia tu destino, actividades al aire libre.
-    El personal estará a tu disposición para servicios románticos dedicados como el Set de Amor y el Planificador de Eventos para la organización de tus momentos especiales.
-    <p>Cada mañana te espera un desayuno a la carta, mientras que para el almuerzo podrás disfrutar de un menú junto a la piscina o de platos de bistró. Para la cena, encontrarás un restaurante contemporáneo o típico y una amplia variedad de platos para satisfacer todos los paladares.</p>
     <p>Las parejas aprecian mucho la ubicación: la han valorado con un 9,1 para un viaje en pareja.</p>
     <p>Este alojamiento se encuentra a solo ${alojamientoSeleccionado.distancia} kilómetros del centro de la ciudad y ofrece una vista impresionante del paisaje. Disfruta de las comodidades como ${alojamientoSeleccionado.desayuno.join(", ")} y relájate en este ambiente ${alojamientoSeleccionado.privada}. El precio por noche es de $${alojamientoSeleccionado.precioPorNoche}, lo que lo convierte en una opción excelente para tu próximo viaje.</p>
         <button onclick="seleccionarAlojamiento(${alojamientoSeleccionado.id})">Reservar</button>
@@ -201,23 +208,39 @@ function manejarPago(event) {
         </div>
     `;
 
+    localStorage.clear();
     mostrarSeccion("confirmacion");
 }
 
+function mostrarMensaje(tipo, mensaje) {
+    const contenedorMensaje = document.getElementById("mensajeAlerta");
+
+    if (!contenedorMensaje) {
+        console.error("El elemento con id 'mensajeAlerta' no se encuentra en el HTML.");
+        return;
+    }
+
+    contenedorMensaje.textContent = mensaje;
+
+    if (tipo === "error") {
+        contenedorMensaje.style.backgroundColor = "#f8d7da";
+        contenedorMensaje.style.color = "#721c24";
+        contenedorMensaje.style.borderColor = "#f5c6cb";
+    } else {
+        contenedorMensaje.style.backgroundColor = "#d4edda";
+        contenedorMensaje.style.color = "#155724";
+        contenedorMensaje.style.borderColor = "#c3e6cb";
+    }
+
+    contenedorMensaje.style.display = "block";
+}
+
 function mostrarSeccion(seccion) {
-    const secciones = ["buscar", "resultados", "detalles", "formularioPago", "confirmacion"];
-    secciones.forEach(id => {
-        if (id === "buscar") {
-            // Mostrar 'buscar' y recuperar resultados si existen
-            document.getElementById(id).style.display = "block";
-            const resultadosGuardados = JSON.parse(localStorage.getItem("resultadosBusqueda"));
-            if (resultadosGuardados) {
-                mostrarResultados(resultadosGuardados);
-            }
-        } else {
-            document.getElementById(id).style.display = id === seccion ? "block" : "none";
-        }
-    });
+    document.getElementById("buscar").style.display = seccion === "buscar" ? "block" : "none";
+    document.getElementById("resultados").style.display = seccion === "resultados" ? "block" : "none";
+    document.getElementById("detalles").style.display = seccion === "detalles" ? "block" : "none";
+    document.getElementById("formularioPago").style.display = seccion === "formularioPago" ? "block" : "none";
+    document.getElementById("confirmacion").style.display = seccion === "confirmacion" ? "block" : "none";
 }
 
 
