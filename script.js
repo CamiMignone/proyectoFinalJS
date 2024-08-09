@@ -166,7 +166,26 @@ function verDetalles(id) {
 }
 
 function seleccionarAlojamiento(id) {
-    mostrarSeccion("formularioPago");
+    const alojamientoSeleccionado = alojamientos.find(alojamiento => alojamiento.id === id);
+    const fechasBusqueda = JSON.parse(localStorage.getItem("fechasBusqueda"));
+
+    if (fechasBusqueda) {
+        const checkin = new Date(fechasBusqueda.checkin);
+        const checkout = new Date(fechasBusqueda.checkout);
+        const diferencia = (checkout - checkin) / (1000 * 60 * 60 * 24);
+        const precioTotal = diferencia * alojamientoSeleccionado.precioPorNoche;
+
+        localStorage.setItem("alojamientoSeleccionado", JSON.stringify({
+            alojamiento: alojamientoSeleccionado,
+            fechas: fechasBusqueda
+        }));
+
+        document.getElementById("nombreAlojamiento").textContent = `${alojamientoSeleccionado.nombre}`;
+        document.getElementById("fechasPago").textContent = `Check-in: ${checkin.toDateString()} - Check-out: ${checkout.toDateString()}`;
+        document.getElementById("diferenciaDias").textContent = `Estadia de ${diferencia} dias`;
+        document.getElementById("precioTotalPago").textContent = `Precio total: $${precioTotal}`;
+        mostrarSeccion("formularioPago");
+    }
 }
 
 function volverAResultados() {
