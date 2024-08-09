@@ -193,7 +193,7 @@ function manejarPago(event) {
     const checkin = new Date(fechas.checkin);
     const checkout = new Date(fechas.checkout);
 
-    const diferencia = (checkout - checkin) / (1000 * 60 * 60 * 24); // Días
+    const diferencia = (checkout - checkin) / (1000 * 60 * 60 * 24);
     const precioTotal = diferencia * alojamientoSeleccionado.alojamiento.precioPorNoche;
 
     const confirmacion = document.getElementById("confirmacion");
