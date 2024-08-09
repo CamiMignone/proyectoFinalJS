@@ -153,7 +153,7 @@ function verDetalles(id) {
         <div class=texto>
         <p>Vive una experiencia exclusiva con el servicio de primera clase en ${alojamientoSeleccionado.nombre}</p>
     <p>Situado en ${alojamientoSeleccionado.ciudad}, ${alojamientoSeleccionado.pais}, ${alojamientoSeleccionado.nombre} ofrece una experiencia inolvidable.</p>
-    <p>Las ${alojamientoSeleccionado.capacidad} habitaciones han sido diseñadas y estudiadas hasta el mínimo detalle para garantizar el máximo confort: minibar, máquina de café espresso, bebidas y snacks secos, línea de baño exclusiva, pantuflas de lujo, kit de bienestar con albornoces, chanclas y bolsa, conexión a internet WiFi de alta velocidad, menú de almohadas y servicio de limpieza dos veces al día.</p>
+    <p>Disponible para ${alojamientoSeleccionado.capacidad} personas, con habitaciones diseñadas y estudiadas hasta el mínimo detalle para garantizar el máximo confort: minibar, máquina de café espresso, bebidas y snacks secos, línea de baño exclusiva, pantuflas de lujo, kit de bienestar con albornoces, chanclas y bolsa, conexión a internet WiFi de alta velocidad, menú de almohadas y servicio de limpieza dos veces al día.</p>
     <p>Cada alojamiento también se caracteriza por su propia identidad: en ${alojamientoSeleccionado.nombre} encontrarás habitaciones con camas colgantes, habitaciones con jacuzzi privado panorámico, habitaciones con bañera exenta en el centro de la habitación, pero todas con un punto en común: el paisaje.</p>
     <p>No te pierdas las experiencias exclusivas para unas vacaciones realmente únicas! Reserva un desayuno flotante, un desayuno con alpacas, o una cena romántica.</p>
     <p>Las parejas aprecian mucho la ubicación: la han valorado con un 9,1 para un viaje en pareja.</p>
