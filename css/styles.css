@@ -71,6 +71,23 @@ section {
     box-sizing: border-box;
 }
 
+.contenedorDetallesPago{
+    display: flex;
+    flex-direction: row;
+}
+
+.contenedorDetallesPago .detallesPago div{
+    margin: 30px;
+}
+
+.contenedorDetallesPago #precioTotalPago{
+    background-color:#5b728a;
+    padding: 10px;
+
+}
+
+
+
 #mensajeAlerta{
     padding: 10px; 
     background-color: #f8d7da; 

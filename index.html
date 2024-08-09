@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Reserva de Alojamiento</title>
-    <link rel="stylesheet" href="./css/styles.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fjalla+One&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <header>
-        <h1>Reserva de Alojamiento</h1>
-        <nav>
-          <ul>
-            <li><a href="#inicio">Buscar alojamiento</a></li>
-            <li><a href="#alquilerAutos">Alquila autos</a></li>
-            <li><a href="#excursion">Excursiones</a></li>
-          </ul>
-        </nav>
-      </header>
-      <main>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reserva de Alojamiento</title>
+  <link rel="stylesheet" href="./css/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fjalla+One&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <h1>Reserva de Alojamiento</h1>
+    <nav>
+      <ul>
+        <li><a href="#inicio">Buscar alojamiento</a></li>
+        <li><a href="#alquilerAutos">Alquila autos</a></li>
+        <li><a href="#excursion">Excursiones</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
 
     <section id="buscar">
       <h2>Buscar Alojamiento</h2>
@@ -39,14 +43,14 @@
       <div id="mensajeAlerta" style="display: none;">
       </div>
     </section>
-    
+
 
     <section id="resultados">
       <h2>Resultados de Búsqueda</h2>
       <div id="contenedorResultados"></div>
     </section>
 
-    
+
 
     <section id="detalles" style="display: none">
       <h2>Detalles del Alojamiento</h2>
@@ -56,49 +60,52 @@
 
     <div id="formularioPago" style="display: none;">
       <h2>Formulario de Pago</h2>
-      <div>
-        <div id="nombreAlojamiento"></div>
-      <div id="fechasPago"></div>
-      <div id="diferenciaDias"></div>
-      <div id="precioTotalPago"></div>
-    </div>
-      <form id="formularioPagoDatos">
+      <div class="contenedorDetallesPago">
+        <div class="detallesPago">
+          <div id="nombreAlojamiento"></div>
+          <div id="fechasPago"></div>
+          <div id="diferenciaDias"></div>
+          <div id="precioTotalPago"></div>
+        </div>
+        <form id="formularioPagoDatos">
           <label for="nombreUsuario">Nombre</label>
           <input type="text" id="nombreUsuario" required />
-  
+
           <label for="apellido">Apellido</label>
           <input type="text" id="apellido" required />
-  
+
           <label for="correo">Correo</label>
           <input type="email" id="correo" required />
-  
+
           <label for="telefono">Telefono</label>
           <input type="number" id="telefono" required />
-  
+
           <label for="nombre">Nombre en la Tarjeta</label>
           <input type="text" id="nombre" required />
-  
+
           <label for="numeroTarjeta">Número de Tarjeta</label>
           <input type="text" id="numeroTarjeta" required />
-  
+
           <label for="fechaExpiracion">Fecha de Expiración</label>
           <input type="month" id="fechaExpiracion" required />
-  
+
           <label for="cvv">CVV</label>
           <input type="text" id="cvv" required />
-  
           <button type="submit">Pagar</button>
-        </form>
-        <button id="botonVolverPago">Volver Atrás</button>
       </div>
+      </form>
+      <button id="botonVolverPago">Volver Atrás</button>
+
+    </div>
 
     <div id="confirmacion" style="display: none"></div>
   </main>
 
-    <footer>
-      <p> 2024 Reserva de Alojamiento. Todos los derechos reservados.</p>
-    </footer>
+  <footer>
+    <p> 2024 Reserva de Alojamiento. Todos los derechos reservados.</p>
+  </footer>
 
-    <script src="script.js"></script>
-  </body>
+  <script src="script.js"></script>
+</body>
+
 </html>
