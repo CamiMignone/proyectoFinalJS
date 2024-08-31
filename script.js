@@ -39,6 +39,14 @@ const alojamientos = [
     { id: 38, pais: "Chile", ciudad: "Concepcion", nombre: "Departamento en el Centro", desayuno: ["incluido"], privada: "privada", capacidad: 2, distancia: 1, precioPorNoche: 80, rutaImagen: "img34.jpg"  }
 ];
 
+fetch("./info.json")
+    .then(response => response.json())
+    .then(alojamientos => console.log(alojamientos))
+    .catch(error => console.log(error))
+
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
     const paisesDisponibles = [...new Set(alojamientos.map(alojamiento => alojamiento.pais))];
     const selectPais = document.getElementById("pais");
